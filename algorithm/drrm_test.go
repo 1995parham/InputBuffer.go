@@ -11,7 +11,6 @@
 package algorithm
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/1995parham/InputBuffer/switches"
@@ -69,5 +68,7 @@ func TestDRRM(t *testing.T) {
 	alg.GrantArbiter[3] = 0
 
 	m := alg.Iterate(sw)
-	fmt.Println(m)
+	if m[0] != 0 || m[1] != -1 || m[2] != 2 || m[3] != 1 {
+		t.Fatalf("Matching must be [0:0 1:-1 2:2 3:1] but it is %v\n", m)
+	}
 }
