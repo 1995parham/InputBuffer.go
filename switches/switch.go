@@ -15,8 +15,8 @@ type Port struct {
 	VOQ []int // Virtual Output Queue
 }
 
-// Switch represents switching fabric that works
-// by input buffer algorithms
+// Switch represents switching fabric that can work
+// with each algorithm
 type Switch struct {
 	Ports []*Port
 	N     int
