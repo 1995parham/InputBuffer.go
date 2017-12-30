@@ -8,10 +8,26 @@
  * +===============================================
  */
 
-package main
+package simulation
 
-import "github.com/1995parham/InputBuffer/switches"
+import (
+	"fmt"
 
-type simulation struct {
-	sw switches.Switch
+	"github.com/1995parham/InputBuffer/algorithm"
+	"github.com/1995parham/InputBuffer/switches"
+)
+
+// Simulation provides switch simulation based on
+// given algorithm
+type Simulation struct {
+	sw  *switches.Switch
+	alg algorithm.Algorithm
+}
+
+// Simulate run simulation by given number
+func (s *Simulation) Simulate(i int) {
+	for i > 0 {
+		s.alg.Iterate(s.sw)
+		fmt.Println(s.sw)
+	}
 }
