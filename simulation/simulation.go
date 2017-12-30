@@ -41,6 +41,7 @@ func (s *Simulation) Simulate(i int) {
 		m := s.alg.Iterate(s.sw)
 
 		fmt.Println(m)
+		// TODO: Adds print information about algorithm
 
 		for i, o := range m {
 			if o != -1 && s.sw.Ports[i].VOQ[o] > 0 {
