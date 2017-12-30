@@ -26,10 +26,13 @@ func main() {
 	sw.Ports[1].VOQ[2] = 2
 	sw.Ports[1].VOQ[3] = 1
 
-	sw.Ports[2].VOQ[2] = 2
+	sw.Ports[2].VOQ[1] = 1
+	sw.Ports[2].VOQ[2] = 3
+	sw.Ports[2].VOQ[3] = 1
 
 	sw.Ports[3].VOQ[1] = 1
 	sw.Ports[3].VOQ[2] = 1
+	sw.Ports[3].VOQ[3] = 1
 
 	alg := algorithm.NewDRRM(4)
 
@@ -45,5 +48,5 @@ func main() {
 
 	s := simulation.New(sw, alg)
 
-	s.Simulate(1)
+	s.Simulate(2)
 }
