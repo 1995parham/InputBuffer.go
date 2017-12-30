@@ -24,9 +24,19 @@ type Simulation struct {
 	alg algorithm.Algorithm
 }
 
+// New creates new simulation instance
+func New(sw *switches.Switch, alg algorithm.Algorithm) *Simulation {
+	return &Simulation{
+		sw:  sw,
+		alg: alg,
+	}
+}
+
 // Simulate run simulation by given number
 func (s *Simulation) Simulate(i int) {
 	for i > 0 {
+		fmt.Printf("%20s%d\n", "I=", i)
+
 		fmt.Println(s.sw)
 		m := s.alg.Iterate(s.sw)
 
@@ -37,5 +47,7 @@ func (s *Simulation) Simulate(i int) {
 				s.sw.Ports[i].VOQ[o]--
 			}
 		}
+
+		i--
 	}
 }
