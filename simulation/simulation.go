@@ -27,7 +27,15 @@ type Simulation struct {
 // Simulate run simulation by given number
 func (s *Simulation) Simulate(i int) {
 	for i > 0 {
-		s.alg.Iterate(s.sw)
 		fmt.Println(s.sw)
+		m := s.alg.Iterate(s.sw)
+
+		fmt.Println(m)
+
+		for i, o := range m {
+			if o != -1 && s.sw.Ports[i].VOQ[o] > 0 {
+				s.sw.Ports[i].VOQ[o]--
+			}
+		}
 	}
 }
