@@ -35,7 +35,7 @@ func TestBasic(t *testing.T) {
 
 	for i := 0; i < 2; i++ {
 		if m[i] >= 2 {
-			t.Fatalf("Input %d -> Output %d but %d >= 2\n", i, m[i])
+			t.Fatalf("Input %d -> Output %d but %d >= 2\n", i, m[i], m[i])
 		}
 	}
 }
