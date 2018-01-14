@@ -14,13 +14,15 @@ import "github.com/1995parham/InputBuffer/switches"
 
 // ISLIP represents Iterative Round-Robin with SLIP Matching Algorithm
 type ISLIP struct {
+	I             int
 	AcceptArbiter []int
 	GrantArbiter  []int
 }
 
-// NewISLIP builds new instance of iSLIP for n port switch
-func NewISLIP(n int) *ISLIP {
+// NewISLIP builds new instance of iSLIP for n port switch that runs i iteration in each time-slot
+func NewISLIP(n int, i int) *ISLIP {
 	return &ISLIP{
+		I:             i,
 		AcceptArbiter: make([]int, n),
 		GrantArbiter:  make([]int, n),
 	}
@@ -33,6 +35,9 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 	}
 
 	m := make(map[int]int)
+
+	// runs i iteation and update arbiters only in first iteration
+	// TODO
 
 	// Request phase
 	r := make(map[int][]int)
