@@ -73,10 +73,10 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 						}
 					}
 					if granted {
-						break
 						if itr == 0 {
 							s.GrantArbiter[i] = (s.GrantArbiter[i] + j) % sw.N
 						}
+						break
 					}
 				}
 			}
