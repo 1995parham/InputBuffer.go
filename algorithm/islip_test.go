@@ -13,7 +13,7 @@ package algorithm
 import (
 	"testing"
 
-	"github.com/1995parham/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer/switches"
 )
 
 //
@@ -51,7 +51,7 @@ func TestISLIP(t *testing.T) {
 
 	sw.Ports[3].VOQ[3] = 2
 
-	alg := NewISLIP(4)
+	alg := NewISLIP(4, 1)
 
 	alg.AcceptArbiter[0] = 0
 	alg.AcceptArbiter[1] = 0

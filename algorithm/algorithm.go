@@ -13,7 +13,7 @@ package algorithm
 import (
 	"fmt"
 
-	"github.com/1995parham/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer/switches"
 )
 
 // Match represents input to output port matching
@@ -35,5 +35,5 @@ func (m Match) String() string {
 
 // Algorithm represents switching fabric algorithm
 type Algorithm interface {
-	Iterate(*switches.Switch) Match
+	Iterate(*switches.Switch) Match // Iterate runs algorithm in order to create match for next time-slot
 }

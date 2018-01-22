@@ -13,8 +13,8 @@ package simulation
 import (
 	"fmt"
 
-	"github.com/1995parham/InputBuffer/algorithm"
-	"github.com/1995parham/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer/algorithm"
+	"github.com/AUTProjects/InputBuffer/switches"
 )
 
 // Simulation provides switch simulation based on
@@ -32,10 +32,10 @@ func New(sw *switches.Switch, alg algorithm.Algorithm) *Simulation {
 	}
 }
 
-// Simulate run simulation by given number
-func (s *Simulation) Simulate(i int) {
-	for i > 0 {
-		fmt.Printf("%20s%d\n", "I=", i)
+// Simulate run simulation by given number of time slots
+func (s *Simulation) Simulate(timeslot int) {
+	for timeslot > 0 {
+		fmt.Printf("%20s%d\n", "I=", timeslot)
 
 		fmt.Println(s.sw)
 		m := s.alg.Iterate(s.sw)
@@ -49,6 +49,6 @@ func (s *Simulation) Simulate(i int) {
 			}
 		}
 
-		i--
+		timeslot--
 	}
 }

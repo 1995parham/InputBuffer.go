@@ -13,7 +13,7 @@ package algorithm
 import (
 	"testing"
 
-	"github.com/1995parham/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer/switches"
 )
 
 //

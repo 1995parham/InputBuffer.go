@@ -11,9 +11,9 @@
 package main
 
 import (
-	"github.com/1995parham/InputBuffer/algorithm"
-	"github.com/1995parham/InputBuffer/simulation"
-	"github.com/1995parham/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer/algorithm"
+	"github.com/AUTProjects/InputBuffer/simulation"
+	"github.com/AUTProjects/InputBuffer/switches"
 )
 
 func main() {
