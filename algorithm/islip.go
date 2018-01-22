@@ -37,59 +37,70 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 	m := make(map[int]int)
 
 	// runs i iteation and update arbiters only in first iteration
-	// TODO
+	itr := 0
 
-	// Request phase
-	r := make(map[int][]int)
-	// For each input port
-	for i := 0; i < sw.N; i++ {
-		for j := 0; j < sw.N; j++ {
-			if sw.Ports[i].VOQ[j] != 0 {
-				r[j] = append(r[j], i)
-			}
-		}
-	}
-
-	// Grant phase
-	g := make(map[int][]int)
-	// For each output port
-	for i := 0; i < sw.N; i++ {
-		granted := false
-		for j := 0; j < sw.N; j++ {
-			for _, in := range r[i] {
-				if in == s.GrantArbiter[i] {
-					if !granted {
-						granted = true
-						g[in] = append(g[in], i)
-					}
-				}
-			}
-			if granted {
-				break
-			}
-			s.GrantArbiter[i] = (s.GrantArbiter[i] + 1) % sw.N
-		}
-	}
-
-	// Accept phase
-	// For each input port
-	for i := 0; i < sw.N; i++ {
-		accepted := false
-		for k, j := 0, s.AcceptArbiter[i]; k < sw.N; k, j = k+1, (j+1)%sw.N {
-			for _, out := range g[i] {
-				if out == j {
-					if !accepted {
-						accepted = true
-						m[i] = out
-						s.GrantArbiter[out] = (s.GrantArbiter[out] + 1) % sw.N
-						s.AcceptArbiter[i] = (j + 1) % sw.N
+	// Iteration 1
+	for itr < s.I {
+		// Request phase
+		r := make(map[int][]int)
+		// For each input port
+		for i := 0; i < sw.N; i++ {
+			if m[i] != -1 {
+				for j := 0; j < sw.N; j++ {
+					if sw.Ports[i].VOQ[j] != 0 {
+						r[j] = append(r[j], i)
 					}
 				}
 			}
 		}
-		if !accepted {
-			m[i] = -1
+
+		// Grant phase
+		g := make(map[int][]int)
+		// For each output port
+		for i := 0; i < sw.N; i++ {
+			granted := false
+			for j := 0; j < sw.N; j++ {
+				for _, in := range r[i] {
+					if in == s.GrantArbiter[i] {
+						if !granted {
+							granted = true
+							g[in] = append(g[in], i)
+						}
+					}
+				}
+				if granted {
+					break
+				}
+				if itr == 0 {
+					s.GrantArbiter[i] = (s.GrantArbiter[i] + 1) % sw.N
+				}
+			}
 		}
+
+		// Accept phase
+		// For each input port
+		for i := 0; i < sw.N; i++ {
+			accepted := false
+			for k, j := 0, s.AcceptArbiter[i]; k < sw.N; k, j = k+1, (j+1)%sw.N {
+				for _, out := range g[i] {
+					if out == j {
+						if !accepted {
+							accepted = true
+							m[i] = out
+							if itr == 0 {
+								s.GrantArbiter[out] = (s.GrantArbiter[out] + 1) % sw.N
+								s.AcceptArbiter[i] = (j + 1) % sw.N
+							}
+						}
+					}
+				}
+			}
+			if !accepted {
+				m[i] = -1
+			}
+		}
+
+		itr++
 	}
 
 	return m
