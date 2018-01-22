@@ -40,7 +40,7 @@ import (
 //     2
 //     3
 // * * 4
-func TestISLIP(t *testing.T) {
+func TestISLIP1(t *testing.T) {
 	sw := switches.New(4)
 
 	sw.Ports[0].VOQ[0] = 1
@@ -68,9 +68,47 @@ func TestISLIP(t *testing.T) {
 	if m[0] != 0 || m[1] != -1 || m[2] != 3 || m[3] != -1 {
 		t.Fatalf("Matching must be [0:0 1:-1 2:3 3:-1] but it is %v\n", m)
 	}
+}
+
+//
+// Input 1
+//   * 1
+// * * 2
+//     3
+//     4
+//
+// Input 2
+//     1
+//   * 2
+//     3
+//     4
+//
+// Input 3
+//     1
+// * * 2
+//     3
+//   * 4
+//
+// Input 4
+//     1
+//     2
+//     3
+// * * 4
+func TestISLIP2(t *testing.T) {
+	sw := switches.New(4)
+
+	sw.Ports[0].VOQ[0] = 1
+	sw.Ports[0].VOQ[1] = 2
+
+	sw.Ports[1].VOQ[1] = 1
+
+	sw.Ports[2].VOQ[1] = 2
+	sw.Ports[2].VOQ[3] = 1
+
+	sw.Ports[3].VOQ[3] = 2
 
 	// iSLIP-2
-	alg = NewISLIP(4, 2)
+	alg := NewISLIP(4, 2)
 
 	alg.AcceptArbiter[0] = 0
 	alg.AcceptArbiter[1] = 0
@@ -82,8 +120,9 @@ func TestISLIP(t *testing.T) {
 	alg.GrantArbiter[2] = 0
 	alg.GrantArbiter[3] = 0
 
-	m = alg.Iterate(sw)
-	if m[0] != 0 || m[1] != -1 || m[2] != 3 || m[3] != -1 {
-		t.Fatalf("Matching must be [0:0 1:-1 2:3 3:-1] but it is %v\n", m)
+	m := alg.Iterate(sw)
+	if m[0] != 0 || m[1] != 1 || m[2] != 3 || m[3] != -1 {
+		t.Fatalf("Matching must be [0:0 1:1 2:3 3:-1] but it is %v\n", m)
 	}
+
 }
