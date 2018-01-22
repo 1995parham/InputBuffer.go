@@ -35,7 +35,7 @@ func main() {
 	sw.Ports[3].VOQ[2] = 1
 	sw.Ports[3].VOQ[3] = 1
 
-	alg := algorithm.NewISLIP(4)
+	alg := algorithm.NewISLIP(4, 1)
 
 	alg.AcceptArbiter[0] = 3
 	alg.AcceptArbiter[1] = 2
