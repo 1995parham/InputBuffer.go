@@ -35,8 +35,9 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 	}
 
 	m := make(map[int]int)
+	b := make(map[int]bool) // is output port number i busy?
 
-	// runs i iteation and update arbiters only in first iteration
+	// runs `s.I` iteation and update arbiters only in first iteration
 	itr := 0
 
 	// Iteration 1
@@ -45,7 +46,7 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 		r := make(map[int][]int)
 		// For each input port
 		for i := 0; i < sw.N; i++ {
-			if m[i] != -1 {
+			if m[i] == -1 || itr == 0 {
 				for j := 0; j < sw.N; j++ {
 					if sw.Ports[i].VOQ[j] != 0 {
 						r[j] = append(r[j], i)
@@ -58,21 +59,23 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 		g := make(map[int][]int)
 		// For each output port
 		for i := 0; i < sw.N; i++ {
-			granted := false
-			for j := 0; j < sw.N; j++ {
-				for _, in := range r[i] {
-					if in == s.GrantArbiter[i] {
-						if !granted {
-							granted = true
-							g[in] = append(g[in], i)
+			if !b[i] {
+				granted := false
+				for j := 0; j < sw.N; j++ {
+					for _, in := range r[i] {
+						if in == s.GrantArbiter[i] {
+							if !granted {
+								granted = true
+								g[in] = append(g[in], i)
+							}
 						}
 					}
-				}
-				if granted {
-					break
-				}
-				if itr == 0 {
-					s.GrantArbiter[i] = (s.GrantArbiter[i] + 1) % sw.N
+					if granted {
+						break
+					}
+					if itr == 0 {
+						s.GrantArbiter[i] = (s.GrantArbiter[i] + 1) % sw.N
+					}
 				}
 			}
 		}
@@ -87,6 +90,7 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 						if !accepted {
 							accepted = true
 							m[i] = out
+							b[out] = true
 							if itr == 0 {
 								s.GrantArbiter[out] = (s.GrantArbiter[out] + 1) % sw.N
 								s.AcceptArbiter[i] = (j + 1) % sw.N
@@ -95,7 +99,7 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 					}
 				}
 			}
-			if !accepted {
+			if itr == 0 && !accepted {
 				m[i] = -1
 			}
 		}
