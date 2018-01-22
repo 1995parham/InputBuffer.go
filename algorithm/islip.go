@@ -10,7 +10,9 @@
 
 package algorithm
 
-import "github.com/AUTProjects/InputBuffer/switches"
+import (
+	"github.com/AUTProjects/InputBuffer/switches"
+)
 
 // ISLIP represents Iterative Round-Robin with SLIP Matching Algorithm
 type ISLIP struct {
@@ -63,7 +65,7 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 				granted := false
 				for j := 0; j < sw.N; j++ {
 					for _, in := range r[i] {
-						if in == s.GrantArbiter[i] {
+						if in == (s.GrantArbiter[i]+j)%sw.N {
 							if !granted {
 								granted = true
 								g[in] = append(g[in], i)
@@ -72,9 +74,9 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 					}
 					if granted {
 						break
-					}
-					if itr == 0 {
-						s.GrantArbiter[i] = (s.GrantArbiter[i] + 1) % sw.N
+						if itr == 0 {
+							s.GrantArbiter[i] = (s.GrantArbiter[i] + j) % sw.N
+						}
 					}
 				}
 			}
