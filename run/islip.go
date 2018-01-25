@@ -16,8 +16,10 @@ func init() {
 	m["iSLIP"] = parseISLIP
 }
 
-func parseISLIP(parameters interface{}, n int) (algorithm.Algorithm, error) {
-	alg := algorithm.NewISLIP(n, 1)
+func parseISLIP(parameters map[interface{}]interface{}, n int) (algorithm.Algorithm, error) {
+	i := parameters["iterations"].(int)
+
+	alg := algorithm.NewISLIP(n, i)
 
 	alg.AcceptArbiter[0] = 3
 	alg.AcceptArbiter[1] = 2
