@@ -1,0 +1,5 @@
+name: iSLIP # write algorithm name in popular form
+parameters:
+  iteration: 1
+ports: 4
+timeslots: 10
