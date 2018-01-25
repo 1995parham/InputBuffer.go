@@ -16,7 +16,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/AUTProjects/InputBuffer/config"
+	"github.com/AUTProjects/InputBuffer/run"
 )
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err := config.Parse(data); err != nil {
+	if err := run.Run(data); err != nil {
 		log.Fatalf("Parsing file %s failed with: %s\n", f, err)
 	}
 }
