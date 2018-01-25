@@ -17,6 +17,7 @@ import (
 )
 
 // Match represents input to output port matching
+// when there is no match for a port use -1.
 type Match map[int]int
 
 func (m Match) String() string {
