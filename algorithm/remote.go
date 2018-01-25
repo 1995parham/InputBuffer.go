@@ -21,21 +21,18 @@ type Remote struct {
 }
 
 // NewRemote builds new instance of remote alogrithm endpoint
-func NewRemote(network, address string) (*Remote, error) {
-	c, err := jsonrpc2.Dial(network, address)
-	if err != nil {
-		return nil, err
-	}
+func NewRemote(url string) *Remote {
+	c := jsonrpc2.NewHTTPClient(url)
 	return &Remote{
 		client: c,
-	}, nil
+	}
 }
 
 // Iterate calls remote algorithm on given switch
 func (r *Remote) Iterate(sw *switches.Switch) Match {
 	m := make(map[int]int)
 
-	r.client.Call("Iterate", sw, &m)
+	r.client.Call("Algorithm.Iterate", *sw, &m)
 
 	return m
 }
