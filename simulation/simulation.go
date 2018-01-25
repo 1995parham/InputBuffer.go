@@ -33,9 +33,9 @@ func New(sw *switches.Switch, alg algorithm.Algorithm) *Simulation {
 }
 
 // Simulate run simulation by given number of time slots
-func (s *Simulation) Simulate(timeslot int) {
-	for timeslot > 0 {
-		fmt.Printf("%20s%d\n", "I=", timeslot)
+func (s *Simulation) Simulate(timeslots int) {
+	for timeslots > 0 {
+		fmt.Printf("%20s%d\n", "T=", timeslots)
 
 		fmt.Println(s.sw)
 		m := s.alg.Iterate(s.sw)
@@ -49,6 +49,6 @@ func (s *Simulation) Simulate(timeslot int) {
 			}
 		}
 
-		timeslot--
+		timeslots--
 	}
 }
