@@ -21,7 +21,7 @@ import (
 
 // Parser parse given parameters from simulation configuration file
 // and return algorithm object with requested configuration or error
-type Parser func(parameters interface{}, n int) (algorithm.Algorithm, error)
+type Parser func(parameters map[interface{}]interface{}, n int) (algorithm.Algorithm, error)
 
 var m = map[string]Parser{}
 
@@ -29,7 +29,7 @@ type simulationConfiguration struct {
 	Name       string
 	Ports      int
 	Timeslots  int
-	Parameters interface{}
+	Parameters map[interface{}]interface{}
 }
 
 // Run parses simulation configuration string written in yaml format and then run simulatation
