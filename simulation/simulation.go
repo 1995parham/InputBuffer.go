@@ -34,12 +34,17 @@ func New(sw *switches.Switch, alg algorithm.Algorithm) *Simulation {
 
 // Simulate run simulation by given number of time slots
 func (s *Simulation) Simulate(timeslots int) {
-	for timeslots > 0 {
-		fmt.Printf("%20s%d\n", "T=", timeslots)
-
+	counter := 0
+	for counter < timeslots {
+		fmt.Printf("%20s%d\n", "T=", counter)
 		fmt.Println(s.sw)
+
+		// TODO: Let's generate traffic
+		fmt.Println("Generate random traffic")
+
 		m := s.alg.Iterate(s.sw)
 
+		fmt.Println(s.sw)
 		fmt.Println(m)
 		// TODO: Adds print information about algorithm
 
