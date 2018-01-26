@@ -13,7 +13,7 @@ package algorithm
 import (
 	"math/rand"
 
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 // RRLQF represents Iterative Round-Robin with Longest Queue First Algorithm

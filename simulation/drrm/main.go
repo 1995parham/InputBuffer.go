@@ -11,9 +11,9 @@
 package main
 
 import (
-	"github.com/AUTProjects/InputBuffer/algorithm"
-	"github.com/AUTProjects/InputBuffer/simulation"
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/simulation"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 func main() {

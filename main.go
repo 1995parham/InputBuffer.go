@@ -16,7 +16,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/AUTProjects/InputBuffer/run"
+	"github.com/AUTProjects/InputBuffer.go/run"
 )
 
 func main() {

@@ -13,7 +13,7 @@ package algorithm
 import (
 	"fmt"
 
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 // Match represents input to output port matching

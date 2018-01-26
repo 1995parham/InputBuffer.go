@@ -10,7 +10,7 @@
 
 package algorithm
 
-import "github.com/AUTProjects/InputBuffer/switches"
+import "github.com/AUTProjects/InputBuffer.go/switches"
 
 // DRRM represents Dual Round Robin Matching Algorithm
 type DRRM struct {

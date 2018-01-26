@@ -10,7 +10,7 @@
 
 package run
 
-import "github.com/AUTProjects/InputBuffer/algorithm"
+import "github.com/AUTProjects/InputBuffer.go/algorithm"
 
 func init() {
 	m["iSLIP"] = parseISLIP

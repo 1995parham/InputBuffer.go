@@ -13,9 +13,9 @@ package run
 import (
 	"fmt"
 
-	"github.com/AUTProjects/InputBuffer/algorithm"
-	"github.com/AUTProjects/InputBuffer/simulation"
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/simulation"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 	"gopkg.in/yaml.v2"
 )
 

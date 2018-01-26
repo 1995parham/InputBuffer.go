@@ -15,7 +15,7 @@ import (
 	"net/rpc"
 	"testing"
 
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 	"github.com/powerman/rpc-codec/jsonrpc2"
 )
 

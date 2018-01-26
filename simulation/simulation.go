@@ -13,8 +13,8 @@ package simulation
 import (
 	"fmt"
 
-	"github.com/AUTProjects/InputBuffer/algorithm"
-	"github.com/AUTProjects/InputBuffer/switches"
+	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 // Simulation provides switch simulation based on
