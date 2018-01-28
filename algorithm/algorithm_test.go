@@ -18,7 +18,7 @@ import (
 
 type dummy struct{}
 
-func (d *dummy) Iterate(s *switches.Switch) Match {
+func (d *dummy) Iterate(s *switches.Switch) switches.Match {
 	return map[int]int{
 		0: -1,
 		1: 1,

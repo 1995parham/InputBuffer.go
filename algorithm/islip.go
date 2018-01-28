@@ -29,7 +29,7 @@ func NewISLIP(n int, i int) *ISLIP {
 }
 
 // Iterate runs iSLIP algorithm on given switch
-func (s *ISLIP) Iterate(sw *switches.Switch) Match {
+func (s *ISLIP) Iterate(sw *switches.Switch) switches.Match {
 	if sw.N != len(s.AcceptArbiter) || sw.N != len(s.GrantArbiter) {
 		panic("invalid switch size")
 	}
@@ -48,7 +48,7 @@ func (s *ISLIP) Iterate(sw *switches.Switch) Match {
 		for i := 0; i < sw.N; i++ {
 			if m[i] == -1 || itr == 0 {
 				for j := 0; j < sw.N; j++ {
-					if sw.Ports[i].VOQ[j] != 0 {
+					if sw.Ports[i].VOQ(j) > 0 {
 						r[j] = append(r[j], i)
 					}
 				}

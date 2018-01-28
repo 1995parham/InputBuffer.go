@@ -43,17 +43,17 @@ import (
 func TestDRRM(t *testing.T) {
 	sw := switches.New(4)
 
-	sw.Ports[0].VOQ[0] = 2
-	sw.Ports[0].VOQ[1] = 1
+	sw.ArriveMany(2, 0, 0)
+	sw.ArriveMany(1, 0, 1)
 
-	sw.Ports[1].VOQ[0] = 1
-	sw.Ports[1].VOQ[2] = 2
-	sw.Ports[1].VOQ[3] = 1
+	sw.ArriveMany(1, 1, 0)
+	sw.ArriveMany(2, 1, 2)
+	sw.ArriveMany(1, 1, 3)
 
-	sw.Ports[2].VOQ[2] = 2
+	sw.ArriveMany(2, 2, 2)
 
-	sw.Ports[3].VOQ[1] = 1
-	sw.Ports[3].VOQ[2] = 1
+	sw.ArriveMany(1, 3, 1)
+	sw.ArriveMany(1, 3, 2)
 
 	alg := NewDRRM(4)
 

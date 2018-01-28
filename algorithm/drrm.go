@@ -27,7 +27,7 @@ func NewDRRM(n int) *DRRM {
 }
 
 // Iterate runs DRRM algorithm on given switch
-func (d *DRRM) Iterate(sw *switches.Switch) Match {
+func (d *DRRM) Iterate(sw *switches.Switch) switches.Match {
 	if sw.N != len(d.GrantArbiter) || sw.N != len(d.RequestArbiter) {
 		panic("invalid switch size")
 	}
@@ -39,7 +39,7 @@ func (d *DRRM) Iterate(sw *switches.Switch) Match {
 	for i := 0; i < sw.N; i++ {
 		requested := false
 		for j := 0; j < sw.N; j++ {
-			if sw.Ports[i].VOQ[d.RequestArbiter[i]] != 0 {
+			if sw.Ports[i].VOQ(d.RequestArbiter[i]) > 0 {
 				m[i] = d.RequestArbiter[i]
 				requested = true
 				break

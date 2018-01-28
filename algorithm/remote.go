@@ -29,7 +29,7 @@ func NewRemote(url string) *Remote {
 }
 
 // Iterate calls remote algorithm on given switch
-func (r *Remote) Iterate(sw *switches.Switch) Match {
+func (r *Remote) Iterate(sw *switches.Switch) switches.Match {
 	m := make(map[int]int)
 
 	r.client.Call("Algorithm.Iterate", *sw, &m)

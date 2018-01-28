@@ -43,13 +43,13 @@ import (
 func TestISLIP1(t *testing.T) {
 	sw := switches.New(4)
 
-	sw.Ports[0].VOQ[0] = 1
-	sw.Ports[0].VOQ[1] = 2
+	sw.ArriveMany(1, 0, 0)
+	sw.ArriveMany(2, 0, 1)
 
-	sw.Ports[2].VOQ[1] = 2
-	sw.Ports[2].VOQ[3] = 1
+	sw.ArriveMany(2, 2, 1)
+	sw.ArriveMany(1, 2, 3)
 
-	sw.Ports[3].VOQ[3] = 2
+	sw.ArriveMany(2, 3, 3)
 
 	// iSLIP-1
 	alg := NewISLIP(4, 1)
@@ -97,15 +97,15 @@ func TestISLIP1(t *testing.T) {
 func TestISLIP2(t *testing.T) {
 	sw := switches.New(4)
 
-	sw.Ports[0].VOQ[0] = 1
-	sw.Ports[0].VOQ[1] = 2
+	sw.ArriveMany(1, 0, 0)
+	sw.ArriveMany(2, 0, 1)
 
-	sw.Ports[1].VOQ[1] = 1
+	sw.ArriveMany(1, 1, 1)
 
-	sw.Ports[2].VOQ[1] = 2
-	sw.Ports[2].VOQ[3] = 1
+	sw.ArriveMany(2, 2, 1)
+	sw.ArriveMany(1, 2, 3)
 
-	sw.Ports[3].VOQ[3] = 2
+	sw.ArriveMany(2, 3, 3)
 
 	// iSLIP-2
 	alg := NewISLIP(4, 2)

@@ -21,7 +21,7 @@ import (
 
 type null struct{}
 
-func (null) Iterate(sw switches.Switch, m *Match) error {
+func (null) Iterate(sw switches.Switch, m *switches.Match) error {
 	*m = make(map[int]int)
 
 	for i := 0; i < sw.N; i++ {
