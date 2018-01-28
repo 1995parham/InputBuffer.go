@@ -30,6 +30,7 @@ type simulationConfiguration struct {
 	Ports      int
 	Timeslots  int
 	Parameters map[interface{}]interface{}
+	InputLoad  float64 `yaml:"load"`
 }
 
 // Run parses simulation configuration string written in yaml format and then run simulatation
@@ -48,7 +49,14 @@ func Run(configuration []byte) error {
 			return err
 		}
 
-		sim := simulation.New(switches.New(s.Ports), alg)
+		var p int
+		if s.InputLoad > 1.0 || s.InputLoad < 0 {
+			p = 80
+		} else {
+			p = int(s.InputLoad * 100)
+		}
+
+		sim := simulation.New(switches.New(s.Ports), alg, p)
 		sim.Simulate(s.Timeslots)
 		return nil
 	}
