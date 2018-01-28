@@ -68,6 +68,13 @@ func (sw *Switch) String() string {
 	return s
 }
 
+// ArriveMany packets into switch
+func (sw *Switch) ArriveMany(n int, i int, o int) {
+	for p := 0; p < n; p++ {
+		sw.Arrive(i, o)
+	}
+}
+
 // Arrive new packet into switch
 func (sw *Switch) Arrive(i int, o int) {
 	if i < 0 || i >= sw.N {
