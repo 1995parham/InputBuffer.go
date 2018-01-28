@@ -20,8 +20,9 @@ type Port struct {
 // Switch represents switching fabric that can work
 // with each algorithm
 type Switch struct {
-	Ports []*Port
-	N     int
+	Ports   []*Port
+	N       int
+	Speedup int
 }
 
 func (sw *Switch) String() string {
@@ -55,7 +56,16 @@ func New(n int) *Switch {
 	}
 
 	return &Switch{
-		Ports: ports,
-		N:     n,
+		Ports:   ports,
+		N:       n,
+		Speedup: 1,
 	}
+}
+
+// NewWithSpeedup creates new switch with n in/out port and speedup s
+func NewWithSpeedup(n int, s int) *Switch {
+	sw := New(n)
+	sw.Speedup = s
+
+	return sw
 }
