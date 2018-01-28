@@ -10,11 +10,33 @@
 
 package switches
 
-import "fmt"
+import (
+	"fmt"
+
+	lists "github.com/emirpasic/gods/lists"
+	dll "github.com/emirpasic/gods/lists/doublylinkedlist"
+)
 
 // Port represents input port of switch
 type Port struct {
-	VOQ []int // Virtual Output Queue
+	voq []lists.List // Virtual Output Queue
+}
+
+func newPort(n int) *Port {
+	p := &Port{
+		voq: make([]lists.List, n),
+	}
+
+	for i := 0; i < n; i++ {
+		p.voq[i] = dll.New()
+	}
+
+	return p
+}
+
+// VOQ returns length of n th VOQ
+func (p *Port) VOQ(n int) int {
+	return p.voq[n].Size()
 }
 
 // Switch represents switching fabric that can work
@@ -23,6 +45,7 @@ type Switch struct {
 	Ports   []*Port
 	N       int
 	Speedup int
+	t       int
 }
 
 func (sw *Switch) String() string {
@@ -32,12 +55,12 @@ func (sw *Switch) String() string {
 	for i := 0; i < sw.N; i++ {
 		s += fmt.Sprintf("Input %d:\n", i)
 		for j := 0; j < sw.N; j++ {
-			s += fmt.Sprintf("%*s\n", sw.Ports[i].VOQ[j], "---")
-			for k := 0; k < sw.Ports[i].VOQ[j]; k++ {
+			s += fmt.Sprintf("%*s\n", sw.Ports[i].VOQ(j), "---")
+			for k := 0; k < sw.Ports[i].VOQ(j); k++ {
 				s += fmt.Sprintf("*")
 			}
 			s += fmt.Sprintf("|\n")
-			s += fmt.Sprintf("%*s\n", sw.Ports[i].VOQ[j], "---")
+			s += fmt.Sprintf("%*s\n", sw.Ports[i].VOQ(j), "---")
 		}
 	}
 	s += fmt.Sprintf("==============\n")
@@ -45,14 +68,46 @@ func (sw *Switch) String() string {
 	return s
 }
 
+// Arrive new packet into switch
+func (sw *Switch) Arrive(i int, o int) {
+	if i < 0 || i >= sw.N {
+		return
+	}
+	if o < 0 || o >= sw.N {
+		return
+	}
+	sw.Ports[i].voq[o].Add(&Packet{
+		arrived:    sw.t,
+		InputPort:  i,
+		OutputPort: o,
+		Delay:      0,
+	})
+}
+
+// Process takes switch into next timeslot based on given match
+func (sw *Switch) Process(m Match) []*Packet {
+	sw.t++
+	ps := make([]*Packet, 0)
+
+	for i, o := range m {
+		if o != -1 && sw.Ports[i].VOQ(o) > 0 {
+			for p := 0; p < sw.Speedup; p++ {
+				pi, _ := sw.Ports[i].voq[o].Get(0)
+				ps = append(ps, pi.(*Packet))
+				sw.Ports[i].voq[o].Remove(0)
+			}
+		}
+	}
+
+	return ps
+}
+
 // New creates new switch with n in/out ports
 func New(n int) *Switch {
 	ports := make([]*Port, n)
 
 	for i := 0; i < n; i++ {
-		ports[i] = &Port{
-			VOQ: make([]int, n),
-		}
+		ports[i] = newPort(n)
 	}
 
 	return &Switch{
