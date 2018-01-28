@@ -48,6 +48,11 @@ type Switch struct {
 	t       int
 }
 
+// T returns timestamps of switches
+func (sw *Switch) T() int {
+	return sw.t
+}
+
 func (sw *Switch) String() string {
 	s := ""
 
