@@ -29,6 +29,7 @@ type simulationConfiguration struct {
 	Name       string
 	Ports      int
 	Timeslots  int
+	Speedup    int
 	Parameters map[interface{}]interface{}
 	InputLoad  float64 `yaml:"load"`
 }
@@ -56,7 +57,7 @@ func Run(configuration []byte) error {
 			p = int(s.InputLoad * 100)
 		}
 
-		sim := simulation.New(switches.New(s.Ports), alg, p)
+		sim := simulation.New(switches.NewWithSpeedup(s.Ports, s.Speedup), alg, p)
 		sim.Simulate(s.Timeslots)
 		return nil
 	}
