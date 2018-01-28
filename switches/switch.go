@@ -101,13 +101,15 @@ func (sw *Switch) Process(m Match) []*Packet {
 	ps := make([]*Packet, 0)
 
 	for i, o := range m {
-		if o != -1 && sw.Ports[i].VOQ(o) > 0 {
+		if o != -1 {
 			for p := 0; p < sw.Speedup; p++ {
-				pi, _ := sw.Ports[i].voq[o].Get(0)
-				pp := pi.(*Packet)
-				pp.Delay = sw.t - pp.arrived
-				ps = append(ps, pp)
-				sw.Ports[i].voq[o].Remove(0)
+				if sw.Ports[i].VOQ(o) > 0 {
+					pi, _ := sw.Ports[i].voq[o].Get(0)
+					pp := pi.(*Packet)
+					pp.Delay = sw.t - pp.arrived
+					ps = append(ps, pp)
+					sw.Ports[i].voq[o].Remove(0)
+				}
 			}
 		}
 	}
