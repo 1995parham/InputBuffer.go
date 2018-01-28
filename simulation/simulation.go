@@ -39,6 +39,7 @@ func New(sw *switches.Switch, alg algorithm.Algorithm, p int) *Simulation {
 func (s *Simulation) Simulate(timeslots int) {
 	counter := 0
 	throughput := 0.0
+	averageDelay := 0.0
 
 	for counter < timeslots {
 		fmt.Printf("%20s%d\n", "T=", counter)
@@ -50,7 +51,7 @@ func (s *Simulation) Simulate(timeslots int) {
 		for i := 0; i < s.sw.N; i++ {
 			if rand.Intn(100) < s.p {
 				in++
-				s.sw.Ports[i].VOQ[rand.Intn(s.sw.N)]++
+				s.sw.Arrive(i, rand.Intn(s.sw.N))
 			}
 		}
 
@@ -61,17 +62,19 @@ func (s *Simulation) Simulate(timeslots int) {
 		// TODO: Adds print information about algorithm
 
 		out := 0
-		for i, o := range m {
-			if o != -1 && s.sw.Ports[i].VOQ[o] > 0 {
-				s.sw.Ports[i].VOQ[o]--
-				out++
-			}
+		delay := 0
+		for _, p := range s.sw.Process(m) {
+			out++
+			delay += p.Delay
 		}
 
 		counter++
 		throughput += float64(out) / float64(in)
+		averageDelay = float64(delay) / float64(out)
 		fmt.Printf("In: %d, Out: %d, Throughput: %g\n", in, out, float64(out)/float64(in))
+		fmt.Printf("Delay: %d\n", delay)
 	}
 
 	fmt.Printf("Average Throughput: %g\n", throughput/float64(timeslots)*100)
+	fmt.Printf("Average Delay: %g\n", averageDelay)
 }
