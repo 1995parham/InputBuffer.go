@@ -21,15 +21,18 @@ func parseISLIP(parameters map[interface{}]interface{}, n int) (algorithm.Algori
 
 	alg := algorithm.NewISLIP(n, i)
 
-	alg.AcceptArbiter[0] = 3
-	alg.AcceptArbiter[1] = 2
-	alg.AcceptArbiter[2] = 2
-	alg.AcceptArbiter[3] = 0
+	/*
+	   TODO: parse and configure arbiters
+	   	alg.AcceptArbiter[0] = 3
+	   	alg.AcceptArbiter[1] = 2
+	   	alg.AcceptArbiter[2] = 2
+	   	alg.AcceptArbiter[3] = 0
 
-	alg.GrantArbiter[0] = 1
-	alg.GrantArbiter[1] = 3
-	alg.GrantArbiter[2] = 2
-	alg.GrantArbiter[3] = 0
+	   	alg.GrantArbiter[0] = 1
+	   	alg.GrantArbiter[1] = 3
+	   	alg.GrantArbiter[2] = 2
+	   	alg.GrantArbiter[3] = 0
+	*/
 
 	return alg, nil
 }
