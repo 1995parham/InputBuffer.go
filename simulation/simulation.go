@@ -75,6 +75,7 @@ func (s *Simulation) Simulate(timeslots int) {
 		fmt.Printf("Delay: %d\n", delay)
 	}
 
+	fmt.Println("--- Results ---")
 	fmt.Printf("Average Throughput: %g\n", throughput/float64(timeslots)*100)
 	fmt.Printf("Average Delay: %g\n", averageDelay)
 }
