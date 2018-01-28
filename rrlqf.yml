@@ -1,0 +1,6 @@
+name: RR/LQF # write algorithm name in popular form
+parameters:
+  iterations: 1
+ports: 8
+timeslots: 300
+load: 1.0
