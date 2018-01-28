@@ -43,9 +43,11 @@ func (s *Simulation) Simulate(timeslots int) {
 
 	for counter < timeslots {
 		fmt.Printf("%20s%d\n", "T=", counter)
+
+		// Print switch state
 		fmt.Println(s.sw)
 
-		// TODO: Let's generate traffic
+		// TODO: Generate traffic
 		fmt.Println("Generate uniform traffic")
 		in := 0
 		for i := 0; i < s.sw.N; i++ {
@@ -55,12 +57,17 @@ func (s *Simulation) Simulate(timeslots int) {
 			}
 		}
 
+		// Generate matching
 		m := s.alg.Iterate(s.sw)
 
+		// Print switch state
 		fmt.Println(s.sw)
+		// Print matching
 		fmt.Println(m)
+
 		// TODO: Adds print information about algorithm
 
+		// Process switch with generate matching
 		out := 0
 		delay := 0
 		for _, p := range s.sw.Process(m) {
