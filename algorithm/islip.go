@@ -40,7 +40,6 @@ func (s *ISLIP) Iterate(sw *switches.Switch) switches.Match {
 	// runs `s.I` iteation and update arbiters only in first iteration
 	itr := 0
 
-	// Iteration 1
 	for itr < s.I {
 		// Request phase
 		r := make(map[int][]int)
