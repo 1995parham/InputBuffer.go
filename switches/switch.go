@@ -86,18 +86,20 @@ func (sw *Switch) Arrive(i int, o int) {
 
 // Process takes switch into next timeslot based on given match
 func (sw *Switch) Process(m Match) []*Packet {
-	sw.t++
 	ps := make([]*Packet, 0)
 
 	for i, o := range m {
 		if o != -1 && sw.Ports[i].VOQ(o) > 0 {
 			for p := 0; p < sw.Speedup; p++ {
 				pi, _ := sw.Ports[i].voq[o].Get(0)
-				ps = append(ps, pi.(*Packet))
+				pp := pi.(*Packet)
+				pp.Delay = sw.t - pp.arrived
+				ps = append(ps, pp)
 				sw.Ports[i].voq[o].Remove(0)
 			}
 		}
 	}
+	sw.t++
 
 	return ps
 }
