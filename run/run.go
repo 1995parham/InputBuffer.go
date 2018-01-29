@@ -63,7 +63,7 @@ func Run(configuration []byte, w io.Writer) error {
 
 		end := make(chan int, 1)
 		go func() {
-			tick := time.Tick(1 * time.Millisecond)
+			tick := time.Tick(10 * time.Millisecond)
 			for {
 				select {
 				case <-end:
