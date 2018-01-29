@@ -13,10 +13,10 @@ package simulation
 import (
 	"fmt"
 	"io"
-	"math/rand"
 	"os"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/generator"
 	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
@@ -25,23 +25,23 @@ import (
 type Simulation struct {
 	sw  *switches.Switch
 	alg algorithm.Algorithm
-	p   int
+	gen generator.Generator
 	w   io.Writer
 }
 
 // New creates new simulation instance
-func New(sw *switches.Switch, alg algorithm.Algorithm, p int) *Simulation {
+func New(sw *switches.Switch, alg algorithm.Algorithm, gen generator.Generator) *Simulation {
 	return &Simulation{
 		sw:  sw,
 		alg: alg,
-		p:   p,
+		gen: gen,
 		w:   os.Stdout,
 	}
 }
 
 // NewWithWriter creates new simulation instance with custom writer
-func NewWithWriter(sw *switches.Switch, alg algorithm.Algorithm, p int, w io.Writer) *Simulation {
-	s := New(sw, alg, p)
+func NewWithWriter(sw *switches.Switch, alg algorithm.Algorithm, gen generator.Generator, w io.Writer) *Simulation {
+	s := New(sw, alg, gen)
 	s.w = w
 
 	return s
@@ -56,14 +56,8 @@ func (s *Simulation) Simulate(timeslots int) {
 	for counter < timeslots {
 		fmt.Fprintf(s.w, "T = %d\n", counter)
 
-		// TODO: Generate traffic
-		in := 0
-		for i := 0; i < s.sw.N; i++ {
-			if rand.Intn(100) < s.p {
-				in++
-				s.sw.Arrive(i, rand.Intn(s.sw.N))
-			}
-		}
+		// Generate traffic
+		in := s.gen.Generate(s.sw)
 
 		// Generate matching
 		m := s.alg.Iterate(s.sw)
