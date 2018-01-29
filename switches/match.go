@@ -17,13 +17,13 @@ import "fmt"
 type Match map[int]int
 
 func (m Match) String() string {
-	s := ""
+	s := "\n|  i  | -> |  o  |\n"
 
 	for i, o := range m {
 		if o == -1 {
-			s += fmt.Sprintf("%d -> x\n", i)
+			s += fmt.Sprintf("|%5d| -> |  x  |\n", i)
 		} else {
-			s += fmt.Sprintf("%d -> %d\n", i, o)
+			s += fmt.Sprintf("|%5d| -> |%5d|\n", i, o)
 		}
 	}
 
