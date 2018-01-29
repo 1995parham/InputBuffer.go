@@ -54,7 +54,7 @@ func (s *Simulation) Simulate(timeslots int) {
 	averageDelay := 0.0
 
 	for counter < timeslots {
-		fmt.Printf("%20s%d\n", "T=", counter)
+		fmt.Fprintf(s.w, "T = %d\n", counter)
 
 		// TODO: Generate traffic
 		in := 0
