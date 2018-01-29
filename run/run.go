@@ -13,6 +13,7 @@ package run
 import (
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
 	"github.com/AUTProjects/InputBuffer.go/simulation"
@@ -58,8 +59,23 @@ func Run(configuration []byte, w io.Writer) error {
 			p = int(s.InputLoad * 100)
 		}
 
-		sim := simulation.NewWithWriter(switches.NewWithSpeedup(s.Ports, s.Speedup), alg, p, w)
+		sw := switches.NewWithSpeedup(s.Ports, s.Speedup)
+
+		end := make(chan int, 1)
+		go func() {
+			tick := time.Tick(1 * time.Millisecond)
+			select {
+			case <-end:
+				return
+			case <-tick:
+				fmt.Printf("%d of %d\n", sw.T(), s.Timeslots)
+			}
+		}()
+
+		sim := simulation.NewWithWriter(sw, alg, p, w)
 		sim.Simulate(s.Timeslots)
+
+		close(end)
 		return nil
 	}
 
