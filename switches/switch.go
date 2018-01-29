@@ -42,10 +42,12 @@ func (p *Port) VOQ(n int) int {
 // Switch represents switching fabric that can work
 // with each algorithm
 type Switch struct {
-	Ports   []*Port
-	N       int
-	Speedup int
+	Ports []*Port
+	N     int
+
+	speedup int
 	t       int
+	f       int
 }
 
 // T returns timestamps of switches
@@ -100,9 +102,14 @@ func (sw *Switch) Arrive(i int, o int) {
 func (sw *Switch) Process(m Match) []*Packet {
 	ps := make([]*Packet, 0)
 
+	speedup := sw.speedup
+	if sw.t > 0 && sw.t%sw.N == 0 {
+		speedup -= sw.f
+	}
+
 	for i, o := range m {
 		if o != -1 {
-			for p := 0; p < sw.Speedup; p++ {
+			for p := 0; p < speedup; p++ {
 				if sw.Ports[i].VOQ(o) > 0 {
 					pi, _ := sw.Ports[i].voq[o].Get(0)
 					pp := pi.(*Packet)
@@ -129,14 +136,24 @@ func New(n int) *Switch {
 	return &Switch{
 		Ports:   ports,
 		N:       n,
-		Speedup: 1,
+		speedup: 1,
 	}
 }
 
 // NewWithSpeedup creates new switch with n in/out port and speedup s
 func NewWithSpeedup(n int, s int) *Switch {
 	sw := New(n)
-	sw.Speedup = s
+	sw.speedup = s
 
 	return sw
+}
+
+// NewWithFractionalSpeedup creates new switch with n in/out port and speedup s - f/n
+func NewWithFractionalSpeedup(n int, s int, f int) *Switch {
+	sw := New(n)
+	sw.speedup = s
+	sw.f = f
+
+	return sw
+
 }
