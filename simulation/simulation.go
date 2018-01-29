@@ -12,7 +12,9 @@ package simulation
 
 import (
 	"fmt"
+	"io"
 	"math/rand"
+	"os"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
 	"github.com/AUTProjects/InputBuffer.go/switches"
@@ -24,6 +26,7 @@ type Simulation struct {
 	sw  *switches.Switch
 	alg algorithm.Algorithm
 	p   int
+	w   io.Writer
 }
 
 // New creates new simulation instance
@@ -32,7 +35,16 @@ func New(sw *switches.Switch, alg algorithm.Algorithm, p int) *Simulation {
 		sw:  sw,
 		alg: alg,
 		p:   p,
+		w:   os.Stdout,
 	}
+}
+
+// NewWithWriter creates new simulation instance with custom writer
+func NewWithWriter(sw *switches.Switch, alg algorithm.Algorithm, p int, w io.Writer) *Simulation {
+	s := New(sw, alg, p)
+	s.w = w
+
+	return s
 }
 
 // Simulate run simulation by given number of time slots
@@ -43,9 +55,6 @@ func (s *Simulation) Simulate(timeslots int) {
 
 	for counter < timeslots {
 		fmt.Printf("%20s%d\n", "T=", counter)
-
-		// Print switch state
-		fmt.Println(s.sw)
 
 		// TODO: Generate traffic
 		in := 0
@@ -60,9 +69,9 @@ func (s *Simulation) Simulate(timeslots int) {
 		m := s.alg.Iterate(s.sw)
 
 		// Print switch state
-		fmt.Println(s.sw)
+		fmt.Fprintln(s.w, s.sw)
 		// Print matching
-		fmt.Println(m)
+		fmt.Fprintln(s.w, m)
 
 		// TODO: Adds print information about algorithm
 
@@ -77,8 +86,8 @@ func (s *Simulation) Simulate(timeslots int) {
 		counter++
 		throughput += float64(out) / float64(in)
 		averageDelay = float64(delay) / float64(out)
-		fmt.Printf("In: %d, Out: %d, Throughput: %g\n", in, out, float64(out)/float64(in))
-		fmt.Printf("Delay: %d\n", delay)
+		fmt.Fprintf(s.w, "In: %d, Out: %d, Throughput: %g\n", in, out, float64(out)/float64(in))
+		fmt.Fprintf(s.w, "Delay: %d\n", delay)
 	}
 
 	fmt.Println("--- Results ---")
