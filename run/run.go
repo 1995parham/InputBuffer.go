@@ -29,13 +29,16 @@ type Parser func(parameters map[interface{}]interface{}, n int) (algorithm.Algor
 var m = map[string]Parser{}
 
 type simulationConfiguration struct {
+	Ports     int
+	Timeslots int
+	Speedup   int
+	Speedupf  int
+
 	Name       string
-	Ports      int
-	Timeslots  int
-	Speedup    int
 	Parameters map[interface{}]interface{}
-	InputLoad  float64 `yaml:"load"`
-	BurstSize  int     `yaml:"burst"`
+
+	InputLoad float64 `yaml:"load"`
+	BurstSize int     `yaml:"burst"`
 }
 
 // Run parses simulation configuration string written in yaml format and then run simulatation
@@ -70,7 +73,12 @@ func Run(configuration []byte, w io.Writer) error {
 			gen = generator.NewUniform(p)
 		}
 
-		sw := switches.NewWithSpeedup(s.Ports, s.Speedup)
+		var sw *switches.Switch
+		if s.Speedupf > 0 {
+			sw = switches.NewWithFractionalSpeedup(s.Ports, s.Speedup, s.Speedupf)
+		} else {
+			sw = switches.NewWithSpeedup(s.Ports, s.Speedup)
+		}
 
 		end := make(chan int, 1)
 		go func() {
