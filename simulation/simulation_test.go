@@ -2,6 +2,7 @@ package simulation
 
 import (
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/generator"
 	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
@@ -35,7 +36,7 @@ func ExampleDRRM() {
 	alg.GrantArbiter[2] = 2
 	alg.GrantArbiter[3] = 0
 
-	s := New(sw, alg, 0)
+	s := New(sw, alg, generator.NewUniform(0))
 
 	s.Simulate(2)
 }
@@ -71,7 +72,7 @@ func ExampleISLIP() {
 	alg.GrantArbiter[2] = 2
 	alg.GrantArbiter[3] = 0
 
-	s := New(sw, alg, 0)
+	s := New(sw, alg, generator.NewUniform(0))
 
 	s.Simulate(3)
 
