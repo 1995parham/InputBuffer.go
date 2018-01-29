@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
+	"github.com/AUTProjects/InputBuffer.go/generator"
 	"github.com/AUTProjects/InputBuffer.go/simulation"
 	"github.com/AUTProjects/InputBuffer.go/switches"
 	"gopkg.in/yaml.v2"
@@ -34,6 +35,7 @@ type simulationConfiguration struct {
 	Speedup    int
 	Parameters map[interface{}]interface{}
 	InputLoad  float64 `yaml:"load"`
+	BurstSize  int     `yaml:"burst"`
 }
 
 // Run parses simulation configuration string written in yaml format and then run simulatation
@@ -59,6 +61,15 @@ func Run(configuration []byte, w io.Writer) error {
 			p = int(s.InputLoad * 100)
 		}
 
+		var gen generator.Generator
+		if s.BurstSize > 0 {
+			// Bursty traffic
+			gen = generator.NewBursty(p, s.BurstSize)
+		} else {
+			// Uniform traffic
+			gen = generator.NewUniform(p)
+		}
+
 		sw := switches.NewWithSpeedup(s.Ports, s.Speedup)
 
 		end := make(chan int, 1)
@@ -74,7 +85,7 @@ func Run(configuration []byte, w io.Writer) error {
 			}
 		}()
 
-		sim := simulation.NewWithWriter(sw, alg, p, w)
+		sim := simulation.NewWithWriter(sw, alg, gen, w)
 		sim.Simulate(s.Timeslots)
 
 		close(end)
