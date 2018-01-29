@@ -12,6 +12,7 @@ package run
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
 	"github.com/AUTProjects/InputBuffer.go/simulation"
@@ -36,7 +37,7 @@ type simulationConfiguration struct {
 
 // Run parses simulation configuration string written in yaml format and then run simulatation
 // with given configuration
-func Run(configuration []byte) error {
+func Run(configuration []byte, w io.Writer) error {
 	var s simulationConfiguration
 
 	err := yaml.Unmarshal(configuration, &s)
@@ -57,7 +58,7 @@ func Run(configuration []byte) error {
 			p = int(s.InputLoad * 100)
 		}
 
-		sim := simulation.New(switches.NewWithSpeedup(s.Ports, s.Speedup), alg, p)
+		sim := simulation.NewWithWriter(switches.NewWithSpeedup(s.Ports, s.Speedup), alg, p, w)
 		sim.Simulate(s.Timeslots)
 		return nil
 	}
