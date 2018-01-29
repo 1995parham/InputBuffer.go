@@ -21,9 +21,16 @@ import (
 
 func main() {
 	var f string
+	var r string
 
 	fmt.Print("Simulation file name: ")
 	fmt.Scanf("%s", &f)
+
+	fmt.Print("Results file name (empty if you do not want it): ")
+	fmt.Scanf("%s", &r)
+	if r != "" {
+		r = r + ".results"
+	}
 
 	data, err := ioutil.ReadFile(f)
 	if err != nil {
