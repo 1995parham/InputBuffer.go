@@ -48,7 +48,6 @@ func (s *Simulation) Simulate(timeslots int) {
 		fmt.Println(s.sw)
 
 		// TODO: Generate traffic
-		fmt.Println("Generate uniform traffic")
 		in := 0
 		for i := 0; i < s.sw.N; i++ {
 			if rand.Intn(100) < s.p {
