@@ -64,11 +64,13 @@ func Run(configuration []byte, w io.Writer) error {
 		end := make(chan int, 1)
 		go func() {
 			tick := time.Tick(1 * time.Millisecond)
-			select {
-			case <-end:
-				return
-			case <-tick:
-				fmt.Printf("%d of %d\n", sw.T(), s.Timeslots)
+			for {
+				select {
+				case <-end:
+					return
+				case <-tick:
+					fmt.Printf("%d of %d\n", sw.T(), s.Timeslots)
+				}
 			}
 		}()
 
