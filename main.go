@@ -30,15 +30,16 @@ func main() {
 	var f string
 	var r string
 
-	fmt.Print("Simulation file name: ")
+	fmt.Print("Simulation file name (without .yml extension): ")
 	fmt.Scanf("%s", &f)
+	f += ".yml"
 
 	var w io.Writer = &fakeWriter{}
 
 	fmt.Print("Results file name (empty if you do not want it): ")
 	fmt.Scanf("%s", &r)
 	if r != "" {
-		r = r + ".results"
+		r += ".results"
 		f, err := os.OpenFile(r, os.O_WRONLY|os.O_CREATE, 0755)
 		if err == nil {
 			w = f
