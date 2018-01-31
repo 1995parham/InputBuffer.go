@@ -10,11 +10,13 @@ higher than the input line speed. But there are two problems:
 2. The need of arbitrating cells due to output port contention.
 
 ## Algorithms
-- [iSLIP](algorithm/islip.go)
-- [DRRM](algorithm/drrm.go)
+- [iSLIP](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.84.1219&rep=rep1&type=pdf)
+- [DRRM]()
+- [RRLQF](http://ieeexplore.ieee.org/abstract/document/7442149/)
 
 ## Simulations
 ### RR-LQF-1 (Uniform Traffic)
+
 | Ports | Throughput | Delay | Load | Speedup | Simulation Cycles |
 | :---- | :--------: | :---: | :--: | :-----: | ----------------: |
 | 8     |  58.41666  | 0     | 0.10 | 1       | 300               |
@@ -42,6 +44,34 @@ higher than the input line speed. But there are two problems:
 | 16    |  92.5      | 5.888 | 1.00 | 4       | 300               |
 | 16    |  91.8125   | 6.923 | 1.00 | 2 - 1/N | 300               |
 
+### RR-LQF-2 (Uniform Traffic)
+
+| Ports | Throughput | Delay | Load | Speedup | Simulation Cycles |
+| :---- | :--------: | :---: | :--: | :-----: | ----------------: |
+| 8     |  52.83333  | 1.5   | 0.10 | 1       | 300               |
+| 8     |  51.88888  | 0     | 0.10 | 2       | 300               |
+| 8     |  51.88888  | 0     | 0.10 | 4       | 300               |
+| 8     |  51.88888  | 0     | 0.10 | 2 - 1/N | 300               |
+| 8     |  88.85952  | 0     | 0.50 | 1       | 300               |
+| 8     |  88.98333  | 1.25  | 0.50 | 2       | 300               |
+| 8     |  88.98333  | 1.33  | 0.50 | 4       | 300               |
+| 8     |  88.94628  | 1.5   | 0.50 | 2 - 1/N | 300               |
+| 8     |  89        | 26.14 | 1.00 | 1       | 300               |
+| 8     |  91.79166  | 3.6   | 1.00 | 2       | 300               |
+| 8     |  91.04166  | 2.25  | 1.00 | 4       | 300               |
+| 8     |  98.83333  | 2.77  | 1.00 | 2 - 1/N | 300               |
+| 16    |  77.53333  | 0     | 0.10 | 1       | 300               |
+| 16    |  75.53333  | 0     | 0.10 | 2       | 300               |
+| 16    |  75.53333  | 0     | 0.10 | 4       | 300               |
+| 16    |  75.53333  | 0     | 0.10 | 2 - 1/N | 300               |
+| 16    |  92.71579  | 2.22  | 0.50 | 1       | 300               |
+| 16    |  92.79074  | 0.2   | 0.50 | 2       | 300               |
+| 16    |  92.79074  | 0.2   | 0.50 | 4       | 300               |
+| 16    |  92.85100  | 1     | 0.50 | 2 - 1/N | 300               |
+| 16    |  85.8333   | 35.07 | 1.00 | 1       | 300               |
+| 16    |  93.0416   | 4.928 | 1.00 | 2       | 300               |
+| 16    |  92.8541   | 3.791 | 1.00 | 4       | 300               |
+| 16    |  92.4375   | 4.052 | 1.00 | 2 - 1/N | 300               |
 
 
 ## References
