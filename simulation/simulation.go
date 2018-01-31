@@ -78,8 +78,16 @@ func (s *Simulation) Simulate(timeslots int) {
 		}
 
 		counter++
-		throughput += float64(out) / float64(in)
-		averageDelay = float64(delay) / float64(out)
+		if in != 0 {
+			if in > out {
+				throughput += float64(out) / float64(in)
+			} else {
+				throughput += 1.0
+			}
+		}
+		if out != 0 {
+			averageDelay = float64(delay) / float64(out)
+		}
 		fmt.Fprintf(s.w, "In: %d, Out: %d, Throughput: %g\n", in, out, float64(out)/float64(in))
 		fmt.Fprintf(s.w, "Delay: %d\n", delay)
 	}
