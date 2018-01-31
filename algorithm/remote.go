@@ -32,7 +32,10 @@ func NewRemote(url string) *Remote {
 func (r *Remote) Iterate(sw *switches.Switch) switches.Match {
 	m := make(map[int]int)
 
-	r.client.Call("Algorithm.Iterate", *sw, &m)
+	err := r.client.Call("Algorithm.Iterate", sw, &m)
+	if err != nil {
+		panic(err)
+	}
 
 	return m
 }
