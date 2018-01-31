@@ -12,6 +12,7 @@ package generator
 
 import (
 	"math/rand"
+	"time"
 
 	"github.com/AUTProjects/InputBuffer.go/switches"
 )
@@ -21,6 +22,7 @@ type Bursty struct {
 	p      int
 	w      int
 	status bool
+	rand   *rand.Rand
 }
 
 // NewBursty creates bursty traffic generator with
@@ -30,6 +32,7 @@ func NewBursty(p int, w int) *Bursty {
 		p:      p,
 		w:      w,
 		status: true,
+		rand:   rand.New(rand.NewSource(time.Now().Unix())),
 	}
 }
 
@@ -47,11 +50,11 @@ func (b *Bursty) Generate(sw *switches.Switch) int {
 	}
 
 	if b.status {
-		if rand.Float64() < (1.0 / float64(b.w)) {
+		if b.rand.Float64() < (1.0 / float64(b.w)) {
 			b.status = false
 		}
 	} else {
-		if rand.Float64() < (float64(b.p) / (float64(b.w) * float64(100-b.p))) {
+		if b.rand.Float64() < (float64(b.p) / (float64(b.w) * float64(100-b.p))) {
 			b.status = true
 		}
 	}

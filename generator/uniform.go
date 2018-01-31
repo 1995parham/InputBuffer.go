@@ -12,20 +12,23 @@ package generator
 
 import (
 	"math/rand"
+	"time"
 
 	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 // Uniform traffic generator
 type Uniform struct {
-	p int
+	p    int
+	rand *rand.Rand
 }
 
 // NewUniform creates uniform traffic generator with
 // load p.
 func NewUniform(p int) *Uniform {
 	return &Uniform{
-		p: p,
+		p:    p,
+		rand: rand.New(rand.NewSource(time.Now().Unix())),
 	}
 }
 
@@ -35,9 +38,9 @@ func NewUniform(p int) *Uniform {
 func (u *Uniform) Generate(sw *switches.Switch) int {
 	in := 0
 	for i := 0; i < sw.N; i++ {
-		if rand.Intn(100) < u.p {
+		if u.rand.Intn(100) < u.p {
 			in++
-			sw.Arrive(i, rand.Intn(sw.N))
+			sw.Arrive(i, u.rand.Intn(sw.N))
 		}
 	}
 	return in
