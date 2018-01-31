@@ -1,8 +1,9 @@
 name: RR/LQF # write algorithm name in popular form
 parameters:
-  iterations: 1
-ports: 8
+  iterations: 2
+ports: 32
 speedup: 2
 speedupf: 1 # 2 - 1/n
-timeslots: 300
+timeslots: 1000
 load: 1.0
+burst: 32
