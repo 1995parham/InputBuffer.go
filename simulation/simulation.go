@@ -14,6 +14,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"reflect"
 
 	"github.com/AUTProjects/InputBuffer.go/algorithm"
 	"github.com/AUTProjects/InputBuffer.go/generator"
@@ -49,6 +50,10 @@ func NewWithWriter(sw *switches.Switch, alg algorithm.Algorithm, gen generator.G
 
 // Simulate run simulation by given number of time slots
 func (s *Simulation) Simulate(timeslots int) {
+	fmt.Printf("Traffic: %s - Algorithm: %s\n",
+		reflect.ValueOf(s.gen).Elem().Type().Name(),
+		reflect.ValueOf(s.alg).Elem().Type().Name())
+
 	counter := 0
 	throughput := 0.0
 	averageDelay := 0.0
