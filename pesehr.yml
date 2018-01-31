@@ -1,6 +1,6 @@
 name: Remote # write algorithm name in popular form
 parameters:
-  url: http://127.0.0.1:4322
+  url: http://127.0.0.1:3000
 ports: 8
 speedup: 1
 timeslots: 300
