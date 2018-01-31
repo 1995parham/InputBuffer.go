@@ -12,19 +12,22 @@ package algorithm
 
 import (
 	"math/rand"
+	"time"
 
 	"github.com/AUTProjects/InputBuffer.go/switches"
 )
 
 // RRLQF represents Iterative Round-Robin with Longest Queue First Algorithm
 type RRLQF struct {
-	I int
+	I    int
+	rand *rand.Rand
 }
 
 // NewRRLQF builds new instance of RR/LQF for n port switch that runs i iteration in each time-slot
 func NewRRLQF(n int, i int) *RRLQF {
 	return &RRLQF{
-		I: i,
+		I:    i,
+		rand: rand.New(rand.NewSource(time.Now().Unix())),
 	}
 }
 
@@ -80,7 +83,7 @@ func (r *RRLQF) Iterate(sw *switches.Switch) switches.Match {
 						index = j
 					}
 					if sw.Ports[j].VOQ(i) == max {
-						if rand.Intn(2) == 1 {
+						if r.rand.Intn(2) == 1 {
 							index = j
 						}
 					}
@@ -107,7 +110,7 @@ func (r *RRLQF) Iterate(sw *switches.Switch) switches.Match {
 							m[i] = j
 						}
 						if sw.Ports[i].VOQ(j) == sw.Ports[i].VOQ(m[i]) {
-							if rand.Intn(2) == 1 {
+							if r.rand.Intn(2) == 1 {
 								m[i] = j
 							}
 
