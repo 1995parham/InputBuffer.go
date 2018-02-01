@@ -9,6 +9,13 @@ higher than the input line speed. But there are two problems:
 1. Throughput limitation due to the head-of-line (HOL) blocking (throughput limited to 58.6 percent for FIFO buffering).
 2. The need of arbitrating cells due to output port contention.
 
+## Installation
+```sh
+go get
+go build
+./InputBuffer.go
+```
+
 ## Algorithms
 - [iSLIP](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.84.1219&rep=rep1&type=pdf)
 - [DRRM]()
