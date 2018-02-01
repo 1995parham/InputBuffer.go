@@ -57,6 +57,8 @@ func (s *Simulation) Simulate(timeslots int) {
 	counter := 0
 	throughput := 0.0
 	averageDelay := 0.0
+	totalOut := 0
+	totalIn := 0
 
 	for counter < timeslots {
 		fmt.Fprintf(s.w, "T = %d\n", counter)
@@ -95,9 +97,15 @@ func (s *Simulation) Simulate(timeslots int) {
 		}
 		fmt.Fprintf(s.w, "In: %d, Out: %d, Throughput: %g\n", in, out, float64(out)/float64(in))
 		fmt.Fprintf(s.w, "Delay: %d\n", delay)
+
+		totalOut += out
+		totalIn += in
 	}
 
 	fmt.Println("--- Results ---")
-	fmt.Printf("Average Throughput: %g\n", throughput/float64(timeslots)*100)
+	// fmt.Printf("Average Throughput: %g\n", throughput/float64(timeslots)*100)
+	fmt.Printf("Average Throughput: %g\n", float64(totalOut)/float64(totalIn)*100)
 	fmt.Printf("Average Delay: %g\n", averageDelay)
+	fmt.Printf("Total In: %d\n", totalIn)
+	fmt.Printf("Total Out: %d\n", totalOut)
 }
