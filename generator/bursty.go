@@ -44,7 +44,7 @@ func (b *Bursty) Generate(sw *switches.Switch) int {
 
 	if b.status {
 		in += b.w
-		sw.ArriveMany(b.w, rand.Intn(sw.N), rand.Intn(sw.N))
+		sw.ArriveMany(b.w, b.rand.Intn(sw.N), b.rand.Intn(sw.N))
 	}
 
 	if b.status {
