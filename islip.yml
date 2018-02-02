@@ -1,7 +1,8 @@
 name: iSLIP # write algorithm name in popular form
 parameters:
-  iterations: 1
-ports: 8
-speedup: 1
+  iterations: 2
+ports: 32
+speedup: 2
 timeslots: 300
-load: 1.0
+load: 0.9
+burst: 30
