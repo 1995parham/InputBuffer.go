@@ -1,7 +1,7 @@
 # InputBuffer
 [![Travis branch](https://img.shields.io/travis/AUTProjects/InputBuffer.go/master.svg?style=flat-square)](https://travis-ci.org/AUTProjects/InputBuffer.go)
 [![GoDoc](https://godoc.org/github.com/AUTProjects/InputBuffer?status.svg)](http://godoc.org/github.com/AUTProjects/InputBuffer)
-[![Codacy grade](https://img.shields.io/codacy/grade/269347155f17432c85b21871da4b6fa2.svg?style=flat-square)](https://www.codacy.com/app/1995parham/InputBuffer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=1995parham/InputBuffer&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/269347155f17432c85b21871da4b6fa2)](https://www.codacy.com/app/1995parham/InputBuffer.go?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AUTProjects/InputBuffer.go&amp;utm_campaign=Badge_Grade)
 
 ## Introduction
 Input buffered switches are desirable for high-speed switching, since the internal operation speed is only moderately
