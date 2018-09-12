@@ -6,6 +6,7 @@
 ## Introduction
 Input buffered switches are desirable for high-speed switching, since the internal operation speed is only moderately
 higher than the input line speed. But there are two problems:
+
 1. Throughput limitation due to the head-of-line (HOL) blocking (throughput limited to 58.6 percent for FIFO buffering).
 2. The need of arbitrating cells due to output port contention.
 
