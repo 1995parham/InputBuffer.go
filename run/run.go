@@ -15,10 +15,10 @@ import (
 	"io"
 	"time"
 
-	"github.com/AUTProjects/InputBuffer.go/algorithm"
-	"github.com/AUTProjects/InputBuffer.go/generator"
-	"github.com/AUTProjects/InputBuffer.go/simulation"
-	"github.com/AUTProjects/InputBuffer.go/switches"
+	"github.com/1995parham/InputBuffer.go/algorithm"
+	"github.com/1995parham/InputBuffer.go/generator"
+	"github.com/1995parham/InputBuffer.go/simulation"
+	"github.com/1995parham/InputBuffer.go/switches"
 	"gopkg.in/yaml.v2"
 )
 

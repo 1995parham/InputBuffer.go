@@ -33,22 +33,22 @@ func (sw *Switch) MarshalJSON() ([]byte, error) {
 	})
 }
 
-// UnmarshalJSON unmarshals switch from valid json
+// UnmarshalJSON unmarshal switch from valid json
 // packet arrival timestamps are invalid
 func (sw *Switch) UnmarshalJSON(bytes []byte) error {
-	var incommingSW struct {
+	var incomingSW struct {
 		N     int
 		T     int
 		Ports [][]int
 	}
-	err := json.Unmarshal(bytes, &incommingSW)
+	err := json.Unmarshal(bytes, &incomingSW)
 
-	sw.N = incommingSW.N
-	sw.t = incommingSW.T
+	sw.N = incomingSW.N
+	sw.t = incomingSW.T
 
-	for i := range incommingSW.Ports {
-		for o := range incommingSW.Ports[i] {
-			sw.ArriveMany(incommingSW.Ports[i][o], i, o)
+	for i := range incomingSW.Ports {
+		for o := range incomingSW.Ports[i] {
+			sw.ArriveMany(incomingSW.Ports[i][o], i, o)
 		}
 	}
 

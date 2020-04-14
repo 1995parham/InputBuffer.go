@@ -11,7 +11,7 @@
 package algorithm
 
 import (
-	"github.com/AUTProjects/InputBuffer.go/switches"
+	"github.com/1995parham/InputBuffer.go/switches"
 	"github.com/powerman/rpc-codec/jsonrpc2"
 )
 

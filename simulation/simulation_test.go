@@ -1,9 +1,9 @@
 package simulation
 
 import (
-	"github.com/AUTProjects/InputBuffer.go/algorithm"
-	"github.com/AUTProjects/InputBuffer.go/generator"
-	"github.com/AUTProjects/InputBuffer.go/switches"
+	"github.com/1995parham/InputBuffer.go/algorithm"
+	"github.com/1995parham/InputBuffer.go/generator"
+	"github.com/1995parham/InputBuffer.go/switches"
 )
 
 func ExampleDRRM() {

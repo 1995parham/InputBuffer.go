@@ -14,7 +14,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/AUTProjects/InputBuffer.go/switches"
+	"github.com/1995parham/InputBuffer.go/switches"
 )
 
 // Bursty traffic generator

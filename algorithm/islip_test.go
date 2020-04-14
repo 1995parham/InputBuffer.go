@@ -13,7 +13,7 @@ package algorithm
 import (
 	"testing"
 
-	"github.com/AUTProjects/InputBuffer.go/switches"
+	"github.com/1995parham/InputBuffer.go/switches"
 )
 
 //

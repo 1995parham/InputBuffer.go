@@ -10,7 +10,7 @@
 
 package algorithm
 
-import "github.com/AUTProjects/InputBuffer.go/switches"
+import "github.com/1995parham/InputBuffer.go/switches"
 
 // ISLIP represents Iterative Round-Robin with SLIP Matching Algorithm
 type ISLIP struct {
